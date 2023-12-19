@@ -125,7 +125,6 @@ void CFirstPersonCamera::Init(int Width, int Height)
 
 mat4 CFirstPersonCamera::Frame_Move(float fTime)
 {
-	
 	POINT mousePos;
 	GetCursorPos(&mousePos);
 
@@ -141,6 +140,7 @@ mat4 CFirstPersonCamera::Frame_Move(float fTime)
 	//для перемещения камеры горизонтально
 	float m_fRotationScalerX = 0.025f;
 
+	//движение камеры вверх- вниз
 	if(nDeltaY<0) m_fRotationScalerY = -m_fRotationScalerY;
 	else if(nDeltaY>0) m_fRotationScalerY = m_fRotationScalerY;
 	else if(nDeltaY==0) m_fRotationScalerY = 0;
@@ -150,8 +150,9 @@ mat4 CFirstPersonCamera::Frame_Move(float fTime)
 	vUp = Vec3_Transform(vUp, matRotRight);
 	vLook = Vec3_Transform(vLook, matRotRight);
 
-	if(nDeltaX<0) m_fRotationScalerX = m_fRotationScalerX;
-	else if(nDeltaX>0) m_fRotationScalerX = -m_fRotationScalerX;
+	//движение камеры влево- вправо
+	if(nDeltaX<0) m_fRotationScalerX = -m_fRotationScalerX;
+	else if(nDeltaX>0) m_fRotationScalerX = m_fRotationScalerX;
 	else if(nDeltaX==0) m_fRotationScalerX = 0;
 
 	vec3 vUpTemp = vec3( 0.0f, 1.0f, 0.0f );
@@ -163,36 +164,32 @@ mat4 CFirstPersonCamera::Frame_Move(float fTime)
 	
 	//реакция на нажатия клавиш
 	float ratioMove = 5000;
-	vec3 temp = vec3(0,0,0);;
 	vec3 vAccel = vec3(0,0,0);
 	
+	float Res = ratioMove * fTime;
+
 	if(GetAsyncKeyState('W')& 0xFF00) 
 	{
-		temp = vec3(vLook.x,0,vLook.z);
-		temp = Vec3_Scale(temp, -ratioMove);
-		vAccel = Vec3_Scale(temp, fTime);
-		vAccel.y = 0.0;
+		vAccel = vec3(vLook.x, 0, vLook.z);
+		vAccel = Vec3_Scale(vAccel, -Res);
 	}
 
 	if(GetAsyncKeyState('S')& 0xFF00) 
 	{
-		temp = vec3(vLook.x,0,vLook.z);
-		temp = Vec3_Scale(temp, ratioMove);
-		vAccel = Vec3_Scale(temp, fTime);
+		vAccel = vec3(vLook.x, 0, vLook.z);
+		vAccel = Vec3_Scale(vAccel, Res);
 	}
 
 	if(GetAsyncKeyState('D')& 0xFF00) 
 	{
-		temp = vec3(vRight.x,0,vRight.z);
-		temp = Vec3_Scale(temp, -ratioMove);
-		vAccel = Vec3_Scale(temp, fTime);
+		vAccel = vec3(vRight.x,0,vRight.z);
+		vAccel = Vec3_Scale(vAccel, Res);
 	}
 
 	if(GetAsyncKeyState('A')& 0xFF00) 
 	{
-		temp = vec3(vRight.x,0,vRight.z);
-		temp = Vec3_Scale(temp, ratioMove);
-		vAccel = Vec3_Scale(temp, fTime);
+		vAccel = vec3(vRight.x,0,vRight.z);
+		vAccel = Vec3_Scale(vAccel, -Res);
 	}
 	
 	vAccel.y = 0.0;
