@@ -11,6 +11,10 @@ Render_To_Texture
 
 <img src="https://github.com/kurlyak/opengl/blob/main/pics/Render_To_Texture.png" alt="OpenGL Render To Texture" width=600 />
 
+Volume_Fog_Sphere For volume fog used sphere mesh, used render to texture for example, used Camera class, you can move around the scene using keys W,S,A,D and mouse
+
+<img src="https://github.com/kurlyak/opengl/blob/main/pics/Volume_Fog_Sphere.png" alt="OpenGL Volume Fog" width=600 />
+
 
 Volume_Fog_TexColors Depth value writes to texture, and texture attached to render target
 
