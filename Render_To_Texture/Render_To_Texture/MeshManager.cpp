@@ -51,7 +51,7 @@ void CMeshManager::Init_MeshManager()
 	{0.0f,1.0f}, {1.0f,1.0f}, {1.0f,0.0f}, {0.0f,0.0f} };	// right
 	
 
-	unsigned int  index_buff[36] = {
+	unsigned int  IndexBuff[36] = {
 	0, 3, 1,  1, 3, 2,		// front
 	4, 7, 5,  5, 7, 6,		// back
 	8,11, 9,  9,11,10,		// top
@@ -76,7 +76,7 @@ void CMeshManager::Init_MeshManager()
 	
     glGenBuffers(1, &VboIndices);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, VboIndices);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, 36 * sizeof(unsigned int) , index_buff, GL_STATIC_DRAW);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, 36 * sizeof(unsigned int) , IndexBuff, GL_STATIC_DRAW);
 
 	glGenVertexArrays( 1, &m_fsCube );
 	glBindVertexArray(m_fsCube);
