@@ -109,7 +109,7 @@ mat4 CFirstPersonCamera::Matrix_Rotation_Axis(vec3 v, float angle)
 			0.0f ,0.0f, 0.0f, 1.0f);
 }
 
-void CFirstPersonCamera::Init(int Width, int Height)
+void CFirstPersonCamera::Init_Camera(int Width, int Height)
 {
 	vRight        = vec3( 1.0, 0.0, 0.0);
     vUp           = vec3( 0.0, 1.0, 0.0);
@@ -164,32 +164,35 @@ mat4 CFirstPersonCamera::Frame_Move(float fTime)
 	
 	//реакция на нажатия клавиш
 	float ratioMove = 5000;
-	vec3 vAccel = vec3(0,0,0);
-	
-	float Res = ratioMove * fTime;
+	vec3 temp = vec3(0, 0, 0);;
+	vec3 vAccel = vec3(0, 0, 0);
 
-	if(GetAsyncKeyState('W')& 0xFF00) 
+	if (GetAsyncKeyState('W') & 0xFF00)
 	{
-		vAccel = vec3(vLook.x, 0, vLook.z);
-		vAccel = Vec3_Scale(vAccel, -Res);
+		temp = vec3(vLook.x, 0, vLook.z);
+		temp = Vec3_Scale(temp, -ratioMove);
+		vAccel += Vec3_Scale(temp, fTime);
 	}
 
-	if(GetAsyncKeyState('S')& 0xFF00) 
+	if (GetAsyncKeyState('S') & 0xFF00)
 	{
-		vAccel = vec3(vLook.x, 0, vLook.z);
-		vAccel = Vec3_Scale(vAccel, Res);
+		temp = vec3(vLook.x, 0, vLook.z);
+		temp = Vec3_Scale(temp, ratioMove);
+		vAccel += Vec3_Scale(temp, fTime);
 	}
 
-	if(GetAsyncKeyState('D')& 0xFF00) 
+	if (GetAsyncKeyState('D') & 0xFF00)
 	{
-		vAccel = vec3(vRight.x,0,vRight.z);
-		vAccel = Vec3_Scale(vAccel, Res);
+		temp = vec3(vRight.x, 0, vRight.z);
+		temp = Vec3_Scale(temp, ratioMove);
+		vAccel += Vec3_Scale(temp, fTime);
 	}
 
-	if(GetAsyncKeyState('A')& 0xFF00) 
+	if (GetAsyncKeyState('A') & 0xFF00)
 	{
-		vAccel = vec3(vRight.x,0,vRight.z);
-		vAccel = Vec3_Scale(vAccel, -Res);
+		temp = vec3(vRight.x, 0, vRight.z);
+		temp = Vec3_Scale(temp, -ratioMove);
+		vAccel += Vec3_Scale(temp, fTime);
 	}
 	
 	vAccel.y = 0.0;

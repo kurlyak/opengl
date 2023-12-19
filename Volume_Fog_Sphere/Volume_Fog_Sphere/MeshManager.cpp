@@ -21,7 +21,7 @@ CMeshManager::~CMeshManager()
 
 void CMeshManager::Init_MeshManager(UINT Width, UINT Height)
 {
-	m_Camera.Init(Width, Height);
+	m_Camera.Init_Camera(Width, Height);
 
 	Load_BMP();
 

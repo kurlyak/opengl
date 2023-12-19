@@ -23,7 +23,7 @@ public:
 
 	CFirstPersonCamera(){};
 	~CFirstPersonCamera(){};
-	void Init(int Width, int Height);
+	void Init_Camera(int Width, int Height);
 	mat4 Frame_Move(float fTime);
 	mat4 Matrix_Rotation_Axis(vec3 v, float angle);
 	vec3 Vec3_Transform(vec3 v, mat4 mat) ;
