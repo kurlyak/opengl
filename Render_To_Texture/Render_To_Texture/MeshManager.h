@@ -39,6 +39,13 @@ private:
 
 	GLuint m_FrameBuffer;
 	GLuint m_RenderedTexture;
+	//наша текстура глубины без нее сцена будет
+	//рисоваться с искажениями (без учета глубины)
+	//для куба это не актуально, но на более
+	//сложных сценах будут искажения
+	//если не добавить эту текстуру
+	GLuint m_DepthTexture;
+
 
 	GLuint m_fsCube;
 	GLuint m_fsQuad;
