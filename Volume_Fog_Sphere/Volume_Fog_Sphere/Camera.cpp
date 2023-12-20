@@ -5,86 +5,86 @@
 #include "OpenGLHeader.h"
 #include "Camera.h"
 
-float CFirstPersonCamera::Vec3_Dot(vec3 v1, vec3 v2)
+float CFirstPersonCamera::Vec3_Dot(vec3 VecIn1, vec3 VecIn2)
 {
-	return v1.x * v2.x + v1.y * v2.y + v1.z * v2.z;
+	return VecIn1.x * VecIn2.x + VecIn1.y * VecIn2.y + VecIn1.z * VecIn2.z;
 }
-vec3 CFirstPersonCamera::Vec3_Add(vec3 v1, vec3 v2)
+vec3 CFirstPersonCamera::Vec3_Add(vec3 VecIn1, vec3 VecIn2)
 {
-	vec3 t;
+	vec3 VecOut;
 
-	t.x = v1.x + v2.x;
-	t.y = v1.y + v2.y;
-	t.z = v1.z + v2.z;
+	VecOut.x = VecIn1.x + VecIn2.x;
+	VecOut.y = VecIn1.y + VecIn2.y;
+	VecOut.z = VecIn1.z + VecIn2.z;
 
-	return t;
-}
-
-vec3 CFirstPersonCamera::Vec3_Cross(vec3 v1, vec3 v2)
-{
-	vec3 t;
-
-	t.x = v1.y * v2.z - v1.z * v2.y;
-	t.y = v1.z * v2.x - v1.x * v2.z;
-	t.z = v1.x * v2.y - v1.y * v2.x;
-
-	return t;
+	return VecOut;
 }
 
-vec3 CFirstPersonCamera::Vec3_Normalize(vec3 v)
+vec3 CFirstPersonCamera::Vec3_Cross(vec3 VecIn1, vec3 VecIn2)
 {
-	vec3 t;
+	vec3 VecOut;
 
-	float vlen = sqrtf( (v.x * v.x) + (v.y * v.y) + (v.z * v.z));
+	VecOut.x = VecIn1.y * VecIn2.z - VecIn1.z * VecIn2.y;
+	VecOut.y = VecIn1.z * VecIn2.x - VecIn1.x * VecIn2.z;
+	VecOut.z = VecIn1.x * VecIn2.y - VecIn1.y * VecIn2.x;
 
-	t.x = v.x/vlen;
-	t.y = v.y/vlen;
-	t.z = v.z/vlen;
-
-	return t;
+	return VecOut;
 }
 
-vec3 CFirstPersonCamera::Vec3_Scale(vec3 v, float val)
+vec3 CFirstPersonCamera::Vec3_Normalize(vec3 VecIn)
 {
-	vec3 t;
+	vec3 VecOut;
 
-	t.x = v.x * val;
-	t.y = v.y * val;
-	t.z = v.z * val;
+	float vlen = sqrtf( (VecIn.x * VecIn.x) + (VecIn.y * VecIn.y) + (VecIn.z * VecIn.z));
 
-	return t;
+	VecOut.x = VecIn.x/vlen;
+	VecOut.y = VecIn.y/vlen;
+	VecOut.z = VecIn.z/vlen;
+
+	return VecOut;
 }
 
-vec3 CFirstPersonCamera::Vec3_Transform(vec3 v, mat4 mat) 
+vec3 CFirstPersonCamera::Vec3_Scale(vec3 VecIn, float ValIn)
+{
+	vec3 VecOut;
+
+	VecOut.x = VecIn.x * ValIn;
+	VecOut.y = VecIn.y * ValIn;
+	VecOut.z = VecIn.z * ValIn;
+
+	return VecOut;
+}
+
+vec3 CFirstPersonCamera::Vec3_Transform(vec3 VecIn, mat4 MatIn)
 {
 
-	vec3 t;
+	vec3 VecOut;
 
 	float w = 1.0;
 
-	t.x = v.x * mat[0][0] + v.y * mat[1][0] + v.z * mat[2][0] + 1*mat[3][0];
-	t.y = v.x * mat[0][1] + v.y * mat[1][1] + v.z * mat[2][1] + 1*mat[3][1];
-	t.z = v.x * mat[0][2] + v.y * mat[1][2] + v.z * mat[2][2] + 1*mat[3][2];
-	//w = v.x * mat[0][3] + v.y * mat[1][3] + v.z * mat[2][3] + 1*mat[3][3];
+	VecOut.x = VecIn.x * MatIn[0][0] + VecIn.y * MatIn[1][0] + VecIn.z * MatIn[2][0] + 1*MatIn[3][0];
+	VecOut.y = VecIn.x * MatIn[0][1] + VecIn.y * MatIn[1][1] + VecIn.z * MatIn[2][1] + 1*MatIn[3][1];
+	VecOut.z = VecIn.x * MatIn[0][2] + VecIn.y * MatIn[1][2] + VecIn.z * MatIn[2][2] + 1*MatIn[3][2];
+	//w = VecIn.x * MatIn[0][3] + VecIn.y * MatIn[1][3] + VecIn.z * MatIn[2][3] + 1*MatIn[3][3];
 
 	/*
-	t.x = t.x / w;
-	t.y = t.y / w;
-	t.z = t.z / w;
+	VecOut.x = VecOut.x / w;
+	VecOut.y = VecOut.y / w;
+	VecOut.z = VecOut.z / w;
 	*/
 
-	return t;
+	return VecOut;
 
 }
 
-mat4 CFirstPersonCamera::Matrix_Rotation_Axis(vec3 v, float angle)
+mat4 CFirstPersonCamera::Matrix_Rotation_Axis(vec3 VecIn, float Angle)
 {
-		float x = v.x;
-		float y = v.y;
-		float z = v.z;
+		float x = VecIn.x;
+		float y = VecIn.y;
+		float z = VecIn.z;
 	
-		float s = sinf(angle);
-		float c = cosf(angle);
+		float s = sinf(Angle);
+		float c = cosf(Angle);
 		float omc = (float)1.0f - c;
 
 		float xomc = x * omc;
@@ -111,10 +111,10 @@ mat4 CFirstPersonCamera::Matrix_Rotation_Axis(vec3 v, float angle)
 
 void CFirstPersonCamera::Init_Camera(int Width, int Height)
 {
-	vRight        = vec3( 1.0, 0.0, 0.0);
-    vUp           = vec3( 0.0, 1.0, 0.0);
-    vLook         = vec3( 0.0, 0.0, 1.0);
-    vCamPos          = vec3(25.0f, 5.0f, 6000.0f);
+	VecRight        = vec3( 1.0, 0.0, 0.0);
+    VecUp           = vec3( 0.0, 1.0, 0.0);
+    VecLook         = vec3( 0.0, 0.0, 1.0);
+    VecCamPos          = vec3(25.0f, 5.0f, 6000.0f);
 
 	ScreenWidth = Width;
 	ScreenHeight = Height;
@@ -145,10 +145,10 @@ mat4 CFirstPersonCamera::Frame_Move(float fTime)
 	else if(nDeltaY>0) m_fRotationScalerY = m_fRotationScalerY;
 	else if(nDeltaY==0) m_fRotationScalerY = 0;
 
-	mat4 matRotRight = Matrix_Rotation_Axis(vRight , m_fRotationScalerY);
-	vRight = Vec3_Transform(vRight, matRotRight);
-	vUp = Vec3_Transform(vUp, matRotRight);
-	vLook = Vec3_Transform(vLook, matRotRight);
+	mat4 matRotRight = Matrix_Rotation_Axis(VecRight , m_fRotationScalerY);
+	VecRight = Vec3_Transform(VecRight, matRotRight);
+	VecUp = Vec3_Transform(VecUp, matRotRight);
+	VecLook = Vec3_Transform(VecLook, matRotRight);
 
 	//движение камеры влево- вправо
 	if(nDeltaX<0) m_fRotationScalerX = -m_fRotationScalerX;
@@ -158,9 +158,9 @@ mat4 CFirstPersonCamera::Frame_Move(float fTime)
 	vec3 vUpTemp = vec3( 0.0f, 1.0f, 0.0f );
 	mat4 matRotUp = Matrix_Rotation_Axis(vUpTemp , m_fRotationScalerX);
 	
-	vRight = Vec3_Transform(vRight, matRotUp);
-	vUp = Vec3_Transform(vUp, matRotUp);
-	vLook = Vec3_Transform(vLook, matRotUp);
+	VecRight = Vec3_Transform(VecRight, matRotUp);
+	VecUp = Vec3_Transform(VecUp, matRotUp);
+	VecLook = Vec3_Transform(VecLook, matRotUp);
 	
 	//реакция на нажатия клавиш
 	float ratioMove = 5000;
@@ -169,49 +169,49 @@ mat4 CFirstPersonCamera::Frame_Move(float fTime)
 
 	if (GetAsyncKeyState('W') & 0xFF00)
 	{
-		temp = vec3(vLook.x, 0, vLook.z);
+		temp = vec3(VecLook.x, 0, VecLook.z);
 		temp = Vec3_Scale(temp, -ratioMove);
 		vAccel += Vec3_Scale(temp, fTime);
 	}
 
 	if (GetAsyncKeyState('S') & 0xFF00)
 	{
-		temp = vec3(vLook.x, 0, vLook.z);
+		temp = vec3(VecLook.x, 0, VecLook.z);
 		temp = Vec3_Scale(temp, ratioMove);
 		vAccel += Vec3_Scale(temp, fTime);
 	}
 
 	if (GetAsyncKeyState('D') & 0xFF00)
 	{
-		temp = vec3(vRight.x, 0, vRight.z);
+		temp = vec3(VecRight.x, 0, VecRight.z);
 		temp = Vec3_Scale(temp, ratioMove);
 		vAccel += Vec3_Scale(temp, fTime);
 	}
 
 	if (GetAsyncKeyState('A') & 0xFF00)
 	{
-		temp = vec3(vRight.x, 0, vRight.z);
+		temp = vec3(VecRight.x, 0, VecRight.z);
 		temp = Vec3_Scale(temp, -ratioMove);
 		vAccel += Vec3_Scale(temp, fTime);
 	}
 	
 	vAccel.y = 0.0;
 	
-	vCamPos = Vec3_Add(vCamPos,vAccel);
+	VecCamPos = Vec3_Add(VecCamPos,vAccel);
 	
-	vLook = Vec3_Normalize(vLook);
-	vUp = Vec3_Cross(vLook,vRight);
-	vUp = Vec3_Normalize(vUp);
-	vRight = Vec3_Cross(vUp,vLook);
-	vRight = Vec3_Normalize(vRight);
+	VecLook = Vec3_Normalize(VecLook);
+	VecUp = Vec3_Cross(VecLook,VecRight);
+	VecUp = Vec3_Normalize(VecUp);
+	VecRight = Vec3_Cross(VecUp,VecLook);
+	VecRight = Vec3_Normalize(VecRight);
 	
-	float x = -Vec3_Dot(vCamPos, vRight);
-	float y = -Vec3_Dot(vCamPos, vUp);
-	float z = -Vec3_Dot(vCamPos, vLook);
+	float x = -Vec3_Dot(VecCamPos, VecRight);
+	float y = -Vec3_Dot(VecCamPos, VecUp);
+	float z = -Vec3_Dot(VecCamPos, VecLook);
 	
-	mat4 MatView = mat4(vRight.x, vUp.x, vLook.x, 0.0f,
-		vRight.y, vUp.y, vLook.y, 0.0f,
-		vRight.z, vUp.z, vLook.z, 0.0f,
+	mat4 MatView = mat4(VecRight.x, VecUp.x, VecLook.x, 0.0f,
+		VecRight.y, VecUp.y, VecLook.y, 0.0f,
+		VecRight.z, VecUp.z, VecLook.z, 0.0f,
 		x,y,z, 1.0f);
 		
 	return MatView;

@@ -396,7 +396,7 @@ void CMeshManager::Draw_MeshManager()
 	GLuint CamPos = glGetUniformLocation(m_ProgramHandlePass0, "gCamPos");
 	if (CamPos >= 0)
 	{
-		glUniform3fv(CamPos, 1, (const GLfloat*)& m_Camera.vCamPos);
+		glUniform3fv(CamPos, 1, (const GLfloat*)& m_Camera.VecCamPos);
 	}
 	
 	glActiveTexture(GL_TEXTURE0);

@@ -25,18 +25,18 @@ public:
 	~CFirstPersonCamera(){};
 	void Init_Camera(int Width, int Height);
 	mat4 Frame_Move(float fTime);
-	mat4 Matrix_Rotation_Axis(vec3 v, float angle);
-	vec3 Vec3_Transform(vec3 v, mat4 mat) ;
-	vec3 Vec3_Scale(vec3 v, float val);
-	vec3 Vec3_Normalize(vec3 v);
-	vec3 Vec3_Cross(vec3 v1, vec3 v2);
-	vec3 Vec3_Add(vec3 v1, vec3 v2);
-	float Vec3_Dot(vec3 v1, vec3 v2);
+	mat4 Matrix_Rotation_Axis(vec3 VecIn, float Angle);
+	vec3 Vec3_Transform(vec3 VecIn, mat4 MatIn) ;
+	vec3 Vec3_Scale(vec3 VecIn, float ValIn);
+	vec3 Vec3_Normalize(vec3 VecIn);
+	vec3 Vec3_Cross(vec3 VecIn1, vec3 VecIn2);
+	vec3 Vec3_Add(vec3 VecIn11, vec3 VecIn2);
+	float Vec3_Dot(vec3 VecIn1, vec3 VecIn2);
 
-	vec3 vCamPos;
+	vec3 VecCamPos;
 
 private:
-	vec3 vRight, vUp, vLook;
+	vec3 VecRight, VecUp, VecLook;
 	int ScreenWidth, ScreenHeight;
 };
 
