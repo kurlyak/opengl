@@ -39,40 +39,40 @@ void CMeshManager::Init_MeshManager()
 	*/
 
 	float VertBuff[8 * 3] = {
-	-4.0, -4.0, -4.0,	//A
-	 4.0, -4.0, -4.0,	//B
-	-4.0,  4.0, -4.0,	//C
-	 4.0,  4.0, -4.0,	//D
+	-4.0, -4.0, 4.0,	//A
+	 4.0, -4.0, 4.0,	//B
+	-4.0,  4.0, 4.0,	//C
+	 4.0,  4.0, 4.0,	//D
 
- 	-4.0, -4.0,  4.0,	//E
-	 4.0, -4.0,  4.0,	//F
-	-4.0,  4.0,  4.0,	//G
-	 4.0,  4.0,  4.0 }; //H
+	-4.0, -4.0,  -4.0,	//E
+	 4.0, -4.0,  -4.0,	//F
+	-4.0,  4.0,  -4.0,	//G
+	 4.0,  4.0,  -4.0 }; //H
 
 	unsigned int IndexBuff[36] = {
-	//front face	
-	A, C, D,
-	A, D, B,
-	
-	//back face
-	G, E, F,
-	G, F, H,
+		//front face	
+		A, D, C,
+		A, B, D,
 
-	//left face
-	E, G, C,
-	E, C, A,
+		//back face
+		G, F, E,
+		G, H, F,
 
-	//right face
-	B, D, H,
-	B, H, F,
+		//left face
+		E, C, G,
+		E, A, C,
 
-	//top face
-	C, G, H,
-	C, H, D,
+		//right face
+		B, H, D,
+		B, F, H,
 
-	//bottom face
-	E, A, B,
-	E, B, F	};
+		//top face
+		C, H, G,
+		C, D, H,
+
+		//bottom face
+		E, B, A,
+		E, F, B };
 
 	glewInit();
 
