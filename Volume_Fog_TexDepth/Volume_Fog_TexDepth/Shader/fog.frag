@@ -8,6 +8,8 @@ uniform sampler2D ourTexture_Front;
 uniform sampler2D ourTexture_Back;
 
 uniform vec3 FogColor = {0.5f,0.5f,0.5f}; 
+
+float FogFactor = 12.0f;
  
 void main()
 {
@@ -21,7 +23,7 @@ void main()
 	if(back == 1.0f)
 		back = 1.0f - back;
 
-	float k = (back-front) * 12.0f;
+	float k = (back-front) * FogFactor;
 
     FragColor = vec4(FogColor*k, 1.0f);
 }
